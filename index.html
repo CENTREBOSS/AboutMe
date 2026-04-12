@@ -12,6 +12,31 @@
     <div class="container">
         <h1 class="text-3d">SARISH GOOD GAME</h1>
         
+        <div class="music-player-container">
+            <audio id="main-audio" controls>
+                <source src="DROPBOX_LINK_1" type="audio/mpeg">
+                Brauzeringiz audioni qo'llab-quvvatlamaydi.
+            </audio>
+            
+            <div class="playlist">
+                <button class="song-btn active" data-src="DROPBOX_LINK_1">
+                    <i class="fas fa-play"></i> <span>1. Cyberpunk Intro</span>
+                </button>
+                <button class="song-btn" data-src="DROPBOX_LINK_2">
+                    <i class="fas fa-music"></i> <span>2. Hacker Vibe Background</span>
+                </button>
+                <button class="song-btn" data-src="DROPBOX_LINK_3">
+                    <i class="fas fa-music"></i> <span>3. Anime Epic OST</span>
+                </button>
+                <button class="song-btn" data-src="DROPBOX_LINK_4">
+                    <i class="fas fa-music"></i> <span>4. Battle Royale Theme</span>
+                </button>
+                <button class="song-btn" data-src="DROPBOX_LINK_5">
+                    <i class="fas fa-music"></i> <span>5. Chill Coding Lofi</span>
+                </button>
+            </div>
+        </div>
+        
         <div class="card">
             <p class="intro">Assalomu alaykum men <strong>SARISH GG</strong>, men bir vaqtni o'zida:</p>
             
@@ -22,7 +47,7 @@
                 <li><i class="fas fa-code"></i> <span>4. Dasturchi (AI, WEB, APP)</span></li>
             </ul>
             
-            <p class="outro">Hisoblanaman menga obuna bo'ling siz bilan o'yinlar olamiga sho'ng'iymiz!</p>
+            <p class="outro">Hisoblanaman, menga obuna bo'ling siz bilan o'yinlar olamiga sho'ng'iymiz!</p>
         </div>
 
         <div class="social-links">
@@ -37,5 +62,48 @@
             </a>
         </div>
     </div>
+
+    <script>
+        const audio = document.getElementById('main-audio');
+        const buttons = document.querySelectorAll('.song-btn');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const isAlreadyPlaying = button.classList.contains('active');
+                
+                // Barcha tugmalardan active klassini va fa-play iconini olib tashlash
+                buttons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.querySelector('i').classList.replace('fa-play', 'fa-music');
+                    btn.style.boxShadow = "none";
+                });
+
+                // Bosilgan tugmaga active klassini qo'shish
+                button.classList.add('active');
+                button.querySelector('i').classList.replace('fa-music', 'fa-play');
+
+                // Musiqani almashtirish va chalish
+                const newSrc = button.getAttribute('data-src');
+                
+                if (audio.src !== newSrc && newSrc !== "DROPBOX_LINK_1") { // Dropbox linklar qo'yilganda ishlaydi
+                    audio.src = newSrc;
+                    audio.play();
+                } else if (!isAlreadyPlaying) {
+                    audio.play();
+                }
+            });
+        });
+
+        // Musiqa tugaganda avtomatik keyingisiga o'tishi uchun (ixtiyoriy qo'shimcha)
+        audio.addEventListener('ended', () => {
+            let activeBtn = document.querySelector('.song-btn.active');
+            let nextBtn = activeBtn.nextElementSibling;
+            if(nextBtn) {
+                nextBtn.click();
+            } else {
+                buttons[0].click(); // Oxiriga yetganda boshidan boshlash
+            }
+        });
+    </script>
 </body>
 </html>
