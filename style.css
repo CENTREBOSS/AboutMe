@@ -1,172 +1,117 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* =========================================
+   YANGI: MUSIQA PLEYERI DIZAYNI
+========================================= */
 
-body {
-    /* Qorong'i gamer/hacker fon */
-    background-color: #0a0a0f;
-    background-image: radial-gradient(circle at top right, #161b22, #0a0a0f);
-    color: #ffffff;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-    overflow-x: hidden;
-}
-
-.container {
-    max-width: 800px;
-    width: 100%;
-    text-align: center;
-}
-
-/* 3D Text Effekti */
-.text-3d {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 3.5rem;
-    color: #00ffcc; /* Neon yashil/ko'k */
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-bottom: 40px;
-    /* 3D soyalar ketma-ketligi */
-    text-shadow:
-        1px 1px 0 #00b38f,
-        2px 2px 0 #00997a,
-        3px 3px 0 #008066,
-        4px 4px 0 #006652,
-        5px 5px 0 #004d3d,
-        6px 6px 15px rgba(0, 0, 0, 0.8),
-        0 0 25px rgba(0, 255, 204, 0.5);
-    animation: float 3s ease-in-out infinite;
-}
-
-/* Matnning ohista harakatlanish animatsiyasi */
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-/* Asosiy ma'lumot oynasi (Glassmorphism) */
-.card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+.music-player-container {
+    background: rgba(10, 10, 15, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 255, 204, 0.3);
     border-radius: 20px;
-    padding: 40px;
+    padding: 25px;
     margin-bottom: 40px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    /* Pleyer uchun nafas oluvchi neon animatsiya */
+    animation: breathingNeon 4s infinite alternate;
 }
 
-.intro {
-    font-size: 1.3rem;
-    margin-bottom: 25px;
-    color: #e0e0e0;
+@keyframes breathingNeon {
+    0% { box-shadow: 0 0 15px rgba(0, 255, 204, 0.1); border-color: rgba(0, 255, 204, 0.3); }
+    100% { box-shadow: 0 0 35px rgba(0, 255, 204, 0.4); border-color: rgba(0, 255, 204, 0.6); }
 }
 
-.intro strong {
+/* Audio pleyerning standart ko'rinishini qoraytirish (WebKit brauzerlar uchun) */
+audio {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    border-radius: 25px;
+    outline: none;
+    background-color: transparent;
+}
+audio::-webkit-media-controls-panel {
+    background-color: #161b22;
+    border: 1px solid rgba(0, 255, 204, 0.2);
+}
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
     color: #00ffcc;
-    font-family: 'Orbitron', sans-serif;
-    letter-spacing: 1px;
 }
 
-/* Ro'yxat dizayni */
-.skills-list {
-    list-style: none;
-    text-align: left;
-    display: inline-block;
-    margin: 0 auto 25px auto;
-}
-
-.skills-list li {
-    font-size: 1.2rem;
-    margin: 15px 0;
+.playlist {
     display: flex;
-    align-items: center;
-    padding: 12px 25px;
-    background: rgba(0, 0, 0, 0.4);
-    border-left: 4px solid #00ffcc;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.skills-list li:hover {
-    transform: translateX(10px) scale(1.02);
-    background: rgba(0, 255, 204, 0.1);
-    box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
-}
-
-.skills-list li i {
-    color: #00ffcc;
-    margin-right: 20px;
-    font-size: 1.5rem;
-    width: 30px;
-    text-align: center;
-}
-
-.outro {
-    font-size: 1.15rem;
-    color: #cccccc;
-    font-style: italic;
-    line-height: 1.6;
-}
-
-/* Ijtimoiy tarmoq tugmalari */
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.social-btn {
-    text-decoration: none;
-    color: white;
-    padding: 14px 30px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 12px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.social-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+.song-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #cccccc;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Elastik sakrash effekti */
+    text-align: left;
+    position: relative;
+    overflow: hidden;
 }
 
-.social-btn i {
-    font-size: 1.4rem;
+.song-btn i {
+    color: #888;
+    width: 20px;
+    text-align: center;
+    transition: color 0.3s ease;
 }
 
-/* Original ranglar */
-.instagram {
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+/* Hover effekti - yengil ko'tarilish */
+.song-btn:hover {
+    background: rgba(0, 255, 204, 0.08);
+    transform: translateX(10px);
+    color: #ffffff;
+    border-color: rgba(0, 255, 204, 0.3);
 }
 
-.telegram {
-    background: #0088cc;
+.song-btn:hover i {
+    color: #00ffcc;
 }
 
-.youtube {
-    background: #ff0000;
+/* Faol musiqa effekti */
+.song-btn.active {
+    background: linear-gradient(90deg, rgba(0, 255, 204, 0.15) 0%, rgba(0, 0, 0, 0) 100%);
+    border-left: 4px solid #00ffcc;
+    border-top: 1px solid rgba(0, 255, 204, 0.2);
+    border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+    border-right: 1px solid transparent;
+    color: #00ffcc;
+    font-weight: 600;
+    transform: scale(1.02) translateX(5px);
+    box-shadow: -10px 0 20px rgba(0, 255, 204, 0.2);
 }
 
-/* Mobil telefonlar uchun moslashuvchanlik */
+.song-btn.active i {
+    color: #00ffcc;
+    animation: bounceIcon 1s infinite; /* Faol paytida iconka harakati */
+}
+
+@keyframes bounceIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+/* Mobil moslashuv */
 @media (max-width: 768px) {
-    .text-3d { 
-        font-size: 2.2rem; 
-        text-shadow: 1px 1px 0 #00b38f, 2px 2px 0 #00997a, 3px 3px 0 #008066, 0 0 15px rgba(0, 255, 204, 0.4);
+    .music-player-container {
+        padding: 15px;
     }
-    .card { padding: 30px 20px; }
-    .skills-list li { font-size: 1.05rem; padding: 10px 15px; }
-    .intro, .outro { font-size: 1rem; }
-    .social-btn { width: 100%; justify-content: center; }
+    .song-btn {
+        font-size: 0.95rem;
+        padding: 12px 15px;
+    }
 }
